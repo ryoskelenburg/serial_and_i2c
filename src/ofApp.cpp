@@ -7,7 +7,7 @@ void ofApp::setup(){
     ofBackground(0, 0, 0);
     mySerial.setup("/dev/cu.usbmodem14101",9600);
     
-    for (int i = 0; i < analogNumber; i++) {
+    for (int i = 0; i < TOTAL_ANALOG_NUM; i++) {
         setupHistoryPlot(i);
     }
 }
@@ -17,8 +17,8 @@ void ofApp::update(){
     
     currentFrameRate = ofGetFrameRate();
     if (mySerial.isInitialized()) {
-        while (mySerial.available() >= analogNumber) {
-            for (int i = 0; i < analogNumber; i++){
+        while (mySerial.available() >= TOTAL_ANALOG_NUM) {
+            for (int i = 0; i < TOTAL_ANALOG_NUM; i++){
                 analogValue[i] = mySerial.readByte();
                 plot[i]->update(analogValue[i]);
             }
@@ -29,12 +29,15 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    for (int i = 0; i < analogNumber; i++) {
-        plot[i]->draw(0, 100 * i , ofGetWidth(), 100);
+    
+    for (int i = 0; i < TOTAL_ANALOG_NUM - 3; i++) {
+        plot[i]->draw(0, 200 * i + 50, ofGetWidth(), 150);
+    }
+    for (int i = 3; i < TOTAL_ANALOG_NUM; i++) {
+        plot[i]->draw(0, 200 * (i-3) + 50, ofGetWidth(), 150);
     }
     
     //std::cout << ofToString(mySerial.available()) << endl;
-    
 }
 
 void ofApp::setupHistoryPlot(int number){

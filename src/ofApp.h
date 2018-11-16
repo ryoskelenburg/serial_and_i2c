@@ -28,10 +28,10 @@ class ofApp : public ofBaseApp{
     
     unsigned char myByte = 65;
     
-    static const int analogNumber = 6;
-    int analogValue[analogNumber];
+    static const int TOTAL_ANALOG_NUM = 6;
+    int analogValue[TOTAL_ANALOG_NUM];
     
-    ofxHistoryPlot * plot[analogNumber];
+    ofxHistoryPlot * plot[TOTAL_ANALOG_NUM];
     void setupHistoryPlot(int number);
     float currentFrameRate = 0;
 		
