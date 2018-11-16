@@ -5,6 +5,11 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetFrameRate(30);
     ofBackground(0, 0, 0);
+    
+    ofTrueTypeFont::setGlobalDpi(72);
+    ofTrueTypeFontSettings settings("AvenirNext-DemiBold.ttf",16);
+    font.load(settings);
+    
     mySerial.setup("/dev/cu.usbmodem14101",9600);
     
     for (int i = 0; i < TOTAL_ANALOG_NUM; i++) {
@@ -36,6 +41,15 @@ void ofApp::draw(){
     for (int i = 3; i < TOTAL_ANALOG_NUM; i++) {
         plot[i]->draw(0, 200 * (i-3) + 50, ofGetWidth(), 150);
     }
+    
+    ofSetColor(255);
+    //font.drawString("test", 0, 50);
+    for(int i = 0; i < TOTAL_ANALOG_NUM - 3; i++){
+        delta[i] = analogValue[i] - analogValue[i + 3];
+        font.drawString("delta: " + ofToString(delta[i]), 0, 200 * i + 40);
+        font.drawString("master: " + ofToString(analogValue[i]) + ", slave: " + ofToString(analogValue[i + 3]), 100, 200 * i + 40);
+    }
+    
     
     //std::cout << ofToString(mySerial.available()) << endl;
 }

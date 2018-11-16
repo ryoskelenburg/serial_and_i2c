@@ -22,6 +22,8 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+    ofTrueTypeFont font;
+    
     ofSerial mySerial;
     int slaveByte = 0;
     int masterByte = 0;
@@ -34,5 +36,7 @@ class ofApp : public ofBaseApp{
     ofxHistoryPlot * plot[TOTAL_ANALOG_NUM];
     void setupHistoryPlot(int number);
     float currentFrameRate = 0;
+    
+    int delta[3] = {0};
 		
 };
